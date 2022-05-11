@@ -24,7 +24,7 @@ formElement.addEventListener('submit', (e) => {
     // Display to do on page within an li element
 
     // Include  a checkbox icon within the li
-    newListItem.innerHTML = `<i class='fa fa-light fa-square'></i>`;
+    newListItem.innerHTML = `<i class='fa-regular fa-square'></i>`;
 
     // Create an element that represents the text we have to add (our TO DO)
     const toDoContent = document.createTextNode(inputElement.value);
@@ -41,8 +41,6 @@ formElement.addEventListener('submit', (e) => {
   }
 });
 
-// Clicking on a task allows you to toggle between checked/unchecked (AKA done vs not done)
-
 // NOTE: This will not work because you can only add event listeners to elements which exist in the DOM at the time of code execution
 // const listElements = document.querySelector('li');
 
@@ -52,8 +50,22 @@ formElement.addEventListener('submit', (e) => {
 
 // In order to attach a click evnent listener to the li's which do not exist on the page yet, we can use:
 // EVENT PROPAGATION to DELAGATE the click to the ul!
+const ul = document.querySelector('ul');
+ul.addEventListener('click', function (e) {
+  // The this keywoard represents the object which owns code which is currently running
+  // This will give us back the ul which is not what we want
+  // console.log(this);
+  console.log(e);
 
-// BONUS LEVEL:
+  // As long as we've clicked on the icon, then:
+  // Clicking on a task allows you to toggle between checked/unchecked (AKA done vs not done)
+  if (e.target.localName === 'i') {
+    console.log('Checkbox was clicked');
+    e.target.classList.toggle('fa-square-check');
+    e.target.classList.toggle('fa-square');
+  }
+});
+
 // Add a "reset" button which clears all of the to - dos
 // Add a "remove task" button to each task
 // Add a edit task button
